@@ -7,7 +7,7 @@ class Table {
         this.seats = seats;
         this.shape = shape;
         this.rotation = 0;
-        this.id = Date.now() + Math.random().toString(36).substr(2, 5);
+        this.id = Date.now() + Math.random().toString(36).substring(2, 5);
     }
 
     getImagePath() {

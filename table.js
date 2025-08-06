@@ -53,15 +53,17 @@ class TableArea {
         this.tempNewTable = null;
     }
 
-    setSize(width, height) {
+    setSize(width, height, skipRender = false) {
         this.container.css({ width, height });
-        const w = this.container.width();
-        const h = this.container.height();
+        const w = this.container.outerWidth();
+        const h = this.container.outerHeight();
         this.tables.forEach(t => {
             if (t.x + 100 > w) t.x = w - 100;
             if (t.y + 100 > h) t.y = h - 100;
         });
-        this.render();
+        if (!skipRender) this.render();
+        const heightInput = $('#input-height');
+        if (heightInput) heightInput.val(h);
     }
 
     loadTables(tableList) {
@@ -71,23 +73,13 @@ class TableArea {
 
     addTable() {
         const deltaY = 100;
-        const deltaX = 120;
-
         if (this.tables.length === 0) {
             this.tempNewTable = new Table(20, 20);
         } else {
             const maxY = Math.max(...this.tables.map(t => t.y));
-            const bottomTables = this.tables.filter(t => t.y === maxY);
-            const maxX = Math.max(...bottomTables.map(t => t.x));
-
-            const newX = maxX + deltaX;
-            const newY = maxY;
-            const containerWidth = this.container.width();
-
-            if (newX + 100 > containerWidth) {
-                this.tempNewTable = new Table(20, maxY + deltaY);
-            } else {
-                this.tempNewTable = new Table(newX, newY);
+            this.tempNewTable = new Table(20, maxY + deltaY);
+            if (maxY + deltaY >= this.container.outerHeight() - deltaY) {
+                this.setSize(this.container.outerWidth(), this.container.outerHeight() + deltaY, true)
             }
         }
 
@@ -130,11 +122,14 @@ class TableArea {
             table.x = e.pageX - offsetX;
             table.y = e.pageY - offsetY;
 
-            if(table.x < 10) table.x = 10;
-            if(table.x > this.container.outerWidth() - ($el.outerWidth() + 10) ) table.x = this.container.outerWidth() - ($el.outerWidth() + 10); 
-            if(table.y < 10) table.y = 10;
-            if(table.y > this.container.outerHeight() - ($el.outerWidth() + 10) ) table.y = this.container.outerHeight() - ($el.outerWidth() + 10);
+            if (table.x < 10) table.x = 10;
+            if (table.x > this.container.outerWidth() - ($el.outerWidth() + 10)) table.x = this.container.outerWidth() - ($el.outerWidth() + 10);
+            if (table.y < 10) table.y = 10;
 
+            const tableBottom = table.y + $el.outerHeight();
+            if (tableBottom > this.container.outerHeight() - 50) {
+                this.setSize(this.container.outerWidth(), tableBottom + 100, true);
+            }
             $el.css('transform', `translate(${table.x}px, ${table.y}px)`);
         }).on('mouseup', function () {
             isDragging = false;

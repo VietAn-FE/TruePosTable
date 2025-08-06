@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sắp xếp bàn</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+
+</head>
+
+<body class="p-3">
+    <div class="mb-3">
+        <label class="form-label">Chiều rộng</label>
+        <input type="number" id="input-width" class="form-control" value="800">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Chiều cao</label>
+        <input type="number" id="input-height" class="form-control" value="600">
+    </div>
+    <button id="btn-set-size" class="btn btn-primary mb-3">Cập nhật mặt bằng</button>
+    <button id="btn-add-table" class="btn btn-success mb-3">Thêm bàn</button>
+
+    <div id="table-area"></div>
+
+    <!-- Modal chỉnh sửa bàn -->
+    <div class="modal fade" id="editTableModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Chỉnh sửa bàn</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="edit-table-select">
+                        <div class="box-left">
+                            <label>Tên bàn</label>
+                            <input type="text" class="form-control mb-2 mt-2" id="edit-name">
+
+                            <div class="list-sl">
+                                <div class="gr-sl">
+                                    <label class="form-label">Kích thước</label>
+                                    <div id="size-options">
+                                        <div class="size-option btn btn-outline-dark w-100 mb-2" data-size="2">Nhỏ (1-2)
+                                        </div>
+                                        <div class="size-option btn btn-outline-dark w-100 mb-2" data-size="4">Trung
+                                            bình (3-4)
+                                        </div>
+                                        <div class="size-option btn btn-outline-dark w-100 mb-2" data-size="6">Lớn (5+)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="gr-sl">
+                                    <label class="form-label">Hình dạng</label>
+                                    <div id="shape-options">
+                                        <div class="shape-option btn btn-outline-dark w-100 mb-2" data-shape="square">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 80 80"
+                                                id="square">
+                                                <g>
+                                                    <defs>
+                                                        <rect id="square_SVGID_1_" width="80" height="80"></rect>
+                                                    </defs>
+                                                    <clipPath id="square_SVGID_2_">
+                                                        <use xlink:href="#square_SVGID_1_" overflow="visible"></use>
+                                                    </clipPath>
+                                                    <g clipPath="url(#square_SVGID_2_)">
+                                                        <path fill="#6B6B6B" d="M76,4v72H4V4H76 M80,0H0v80h80V0L80,0z">
+                                                        </path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <div class="shape-option btn btn-outline-dark w-100 mb-2" data-shape="circle">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 80 80"
+                                                id="circle">
+                                                <g>
+                                                    <defs>
+                                                        <rect id="circle_SVGID_1_" width="80" height="80"></rect>
+                                                    </defs>
+                                                    <clipPath id="circle_SVGID_2_">
+                                                        <use xlink:href="#circle_SVGID_1_" overflow="visible"></use>
+                                                    </clipPath>
+                                                    <g clipPath="url(#circle_SVGID_2_)">
+                                                        <path fill="#6B6B6B"
+                                                            d="M40.2,4C59.2,4,75,19,76,38.1c1,19.7-14.3,36.7-34.1,37.8c-0.7,0-1.4,0.1-2,0.1C20.8,76,5,61,4,41.9    C3,22.1,18.3,5.2,38.1,4.1C38.8,4,39.5,4,40.2,4 M40.2,0c-0.7,0-1.5,0-2.2,0.1c-22,1.2-39,19.9-37.9,42C1.2,63.4,18.8,80,39.8,80    c0.7,0,1.5,0,2.2-0.1c22-1.2,39-20,37.9-42C78.8,16.6,61.2,0,40.2,0L40.2,0z">
+                                                        </path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <div class="shape-option btn btn-outline-dark w-100 mb-2"
+                                            data-shape="rectangle">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 120 80"
+                                                id="rectangle">
+                                                <g>
+                                                    <defs>
+                                                        <rect id="rectangle_SVGID_1_" width="120" height="80"></rect>
+                                                    </defs>
+                                                    <clipPath id="rectangle_SVGID_2_">
+                                                        <use xlink:href="#rectangle_SVGID_1_" overflow="visible"></use>
+                                                    </clipPath>
+                                                    <g clipPath="url(#rectangle_SVGID_2_)">
+                                                        <path fill="#6B6B6B"
+                                                            d="M116,4v72H4V4H116 M120,0H0v80h120V0L120,0z"></path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-preview">
+                            <img id="preview-img" src="" class="img-fluid mb-3" alt="Preview">
+                            <div class="size-table-sl"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-save-edit" class="btn btn-primary" disabled>Lưu</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="table.js"></script>
+    <script>
+        const area = new TableArea('#table-area');
+
+        function updatePreviewImage() {
+            const shape = $('#shape-options .selected').data('shape');
+            const seats = $('#size-options .selected').data('size');
+            const path = `images/${shape}_${seats}.png`;
+            const name = $('#size-options .selected').html();
+            $('.size-table-sl').html(name);
+            $('#preview-img').attr('src', path);
+        }
+
+        function openEditModal(table) {
+            $('#edit-name').val(table.name);
+            $('#btn-save-edit').prop('disabled', table.name.trim() === '');
+
+            $('#size-options .size-option').removeClass('selected');
+            $(`#size-options .size-option[data-size="${table.seats}"]`).addClass('selected');
+
+            $('#shape-options .shape-option').removeClass('selected');
+            $(`#shape-options .shape-option[data-shape="${table.shape}"]`).addClass('selected');
+
+            updatePreviewImage();
+            if (area.tables.includes(table)) {
+                $('#btn-save-edit').data('id', table.id);
+            } else {
+                $('#btn-save-edit').removeData('id');
+            }
+            new bootstrap.Modal($('#editTableModal')).show();
+        }
+
+        $('#edit-name').on('input', function () {
+            $('#btn-save-edit').prop('disabled', $(this).val().trim() === '');
+        });
+
+        $('#btn-set-size').click(() => {
+            const w = parseInt($('#input-width').val());
+            const h = parseInt($('#input-height').val());
+            area.setSize(w, h);
+        });
+
+        $('#btn-add-table').click(() => area.addTable());
+
+        $('#btn-save-edit').click(() => {
+            const id = $('#btn-save-edit').data('id');
+            const name = $('#edit-name').val();
+            const seats = parseInt($('#size-options .selected').data('size'));
+            const shape = $('#shape-options .selected').data('shape');
+
+            if (id) {
+                const table = area.getTable(id);
+                if (table) {
+                    table.name = name;
+                    table.seats = seats;
+                    table.shape = shape;
+                    area.render();
+                }
+            } else {
+                const t = area.tempNewTable;
+                t.name = name;
+                t.seats = seats;
+                t.shape = shape;
+                area.tables.push(t);
+                area.render();
+            }
+
+            bootstrap.Modal.getInstance($('#editTableModal')).hide();
+        });
+
+        $('#size-options .size-option').on('click', function () {
+            $('#size-options .size-option').removeClass('selected');
+            $(this).addClass('selected');
+            updatePreviewImage();
+        });
+
+        $('#shape-options .shape-option').on('click', function () {
+            $('#shape-options .shape-option').removeClass('selected');
+            $(this).addClass('selected');
+            updatePreviewImage();
+        });
+
+        $('#table-area').on('click', () => {
+            $('.table-item').removeClass('selected');
+        });
+
+        $(document).ready(() => {
+            $('#btn-set-size').click();
+            area.loadTables([
+                { x: 50, y: 50, name: 'Bàn A1', seats: 4, shape: 'rectangle' },
+                { x: 200, y: 100, name: 'Bàn A2', seats: 6, shape: 'circle' }
+            ]);
+        });
+    </script>
+</body>
+
+</html>

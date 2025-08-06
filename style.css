@@ -99,7 +99,12 @@
     align-items: center;
     gap: 20px;
 }
-
+.edit-table-select .btn-outline-dark:hover {
+    color: #212529 !important;
+}
+.edit-table-select .btn-outline-dark:not(.selected):hover {
+    background: #ddd !important;
+}
 .box-preview {
     width: 200px;
     display: flex;

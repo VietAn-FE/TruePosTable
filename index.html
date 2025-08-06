@@ -27,19 +27,19 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Chỉnh sửa bàn</h5>
+                    <h5 class="modal-title">Thêm mới/ Chỉnh sửa bàn/ phòng</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
 
                     <div class="edit-table-select">
                         <div class="box-left">
-                            <label>Tên bàn</label>
+                            <label>Tên bàn/ phòng</label>
                             <input type="text" class="form-control mb-2 mt-2" id="edit-name" placeholder="Nhập tên bàn">
 
                             <div class="list-sl">
                                 <div class="gr-sl">
-                                    <label class="form-label">Kích thước</label>
+                                    <label class="form-label">Loại bàn/ phòng</label>
                                     <div id="size-options">
                                         <div class="size-option btn btn-outline-dark w-100 mb-2" data-size="2">Nhỏ (1-2)
                                         </div>
@@ -51,7 +51,7 @@
                                     </div>
                                 </div>
                                 <div class="gr-sl">
-                                    <label class="form-label">Hình dạng</label>
+                                    <label class="form-label">Kiểu dáng</label>
                                     <div id="shape-options">
                                         <div class="shape-option btn btn-outline-dark w-100 mb-2" data-shape="square">
                                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -142,7 +142,7 @@
             $('#preview-img').attr('src', path);
         }
 
-        function openEditModal(table) {
+        function openEditModal(table, type = 'add') {
             $('#edit-name').val(table.name);
             $('#btn-save-edit').prop('disabled', table.name.trim() === '');
 
@@ -151,7 +151,11 @@
 
             $('#shape-options .shape-option').removeClass('selected');
             $(`#shape-options .shape-option[data-shape="${table.shape}"]`).addClass('selected');
-
+            if (type == 'edit') {
+                $('#editTableModal .modal-title').text('Chỉnh sửa bàn/ phòng');
+            } else {
+                $('#editTableModal .modal-title').text('Thêm mới bàn/ phòng');
+            }
             updatePreviewImage();
             if (area.tables.includes(table)) {
                 $('#btn-save-edit').data('id', table.id);

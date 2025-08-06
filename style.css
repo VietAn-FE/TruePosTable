@@ -90,7 +90,7 @@
     opacity: 0;
 }
 
-.table-item:hover .table-controls {
+.table-item:hover .table-controls ,.table-item.selected .table-controls{
     opacity: 1;
 }
 

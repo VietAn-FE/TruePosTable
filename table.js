@@ -157,7 +157,7 @@ class TableArea {
         });
 
         $el.find('.btn-delete').click(() => this.deleteTable(table.id));
-        $el.find('.btn-edit').click(() => openEditModal(table));
+        $el.find('.btn-edit').click(() => openEditModal(table,'edit'));
 
         $el.on('click', (e) => {
             e.stopPropagation();

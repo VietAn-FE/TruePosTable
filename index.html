@@ -189,6 +189,7 @@
                     table.name = name;
                     table.seats = seats;
                     table.shape = shape;
+                    table.image = `images/${shape}_${seats}.png`;
                     area.render();
                 }
             } else {
@@ -196,6 +197,7 @@
                 t.name = name;
                 t.seats = seats;
                 t.shape = shape;
+                t.image = `images/${shape}_${seats}.png`;
                 area.items.push(t);
                 area.render();
             }

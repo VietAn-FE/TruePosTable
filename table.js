@@ -1,12 +1,11 @@
 // ---------------- CLASS DRAGOBJECT ----------------
 class DragObject {
-    constructor(x, y, name = "", seats = 2, shape = 'square') {
+    constructor(x, y, name = '', image = '', rotation = 0) {
         this.x = x;
         this.y = y;
         this.name = name;
-        this.seats = seats;
-        this.shape = shape;
-        this.rotation = 0;
+        this.image = image;
+        this.rotation = rotation;
         this.id = '_' + Date.now() + Math.random().toString(36).substring(2, 9);
     }
 
@@ -114,6 +113,7 @@ class TableArea {
         this.tempNewTable.name = "";
         this.tempNewTable.seats = 2;
         this.tempNewTable.shape = 'square';
+        this.tempNewTable.image = `images/square_2.png`
         openEditModal(this.tempNewTable);
     }
 

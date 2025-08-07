@@ -20,7 +20,7 @@
     </div>
     <button id="btn-set-size" class="btn btn-primary mb-3">Cập nhật mặt bằng</button>
     <button id="btn-add-table" class="btn btn-success mb-3">Thêm bàn</button>
-
+    <input type="checkbox" id="snap-toggle"> Snap to Grid</label>
     <div id="table-area"></div>
 
     <div class="modal fade" id="editTableModal" tabindex="-1">
@@ -157,7 +157,7 @@
                 $('#editTableModal .modal-title').text('Thêm mới bàn/ phòng');
             }
             updatePreviewImage();
-            if (area.tables.includes(table)) {
+            if (area.items.includes(table)) {
                 $('#btn-save-edit').data('id', table.id);
             } else {
                 $('#btn-save-edit').removeData('id');
@@ -184,7 +184,7 @@
             const shape = $('#shape-options .selected').data('shape');
 
             if (id) {
-                const table = area.getTable(id);
+                const table = area.getItem(id);
                 if (table) {
                     table.name = name;
                     table.seats = seats;
@@ -196,7 +196,7 @@
                 t.name = name;
                 t.seats = seats;
                 t.shape = shape;
-                area.tables.push(t);
+                area.items.push(t);
                 area.render();
             }
 
@@ -218,12 +218,15 @@
         $('#table-area').on('click', () => {
             $('.table-item').removeClass('selected');
         });
-
+        $('#snap-toggle').on('change', (e) => {
+            area.snapToGrid = e.target.checked;
+        });
         $(document).ready(() => {
             $('#btn-set-size').click();
-            area.loadTables([
-                { x: 50, y: 50, name: 'Bàn A1', seats: 4, shape: 'rectangle' },
-                { x: 200, y: 100, name: 'Bàn A2', seats: 6, shape: 'circle' }
+            area.loadItems([
+                { "type": "table", "x": 100, "y": 100, "name": "Bàn 1", "seats": 4, "shape": "circle" },
+                { "type": "table", "x": 300, "y": 150, "name": "Bàn 2", "seats": 2, "shape": "square" },
+                { "type": "door", "x": 400, "y": 10, "name": "Cửa" }
             ]);
         });
     </script>

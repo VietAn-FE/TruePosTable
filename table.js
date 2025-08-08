@@ -41,8 +41,8 @@ class DragObject {
 }
 //---------------- CLASS TABLE ----------------
 class Table extends DragObject {
-    constructor(x, y, name = '', seats = 2, shape = 'square') {
-        super(x, y, name);
+    constructor(x, y, name = '', seats = 2, shape = 'square', rotation = 0) {
+        super(x, y, name, rotation);
         this.seats = seats;
         this.shape = shape;
         this.isEdit = true;
@@ -52,8 +52,8 @@ class Table extends DragObject {
 
 //---------------- CLASS DOOR ----------------
 class Door extends DragObject {
-    constructor(x, y, name = '') {
-        super(x, y, name);
+    constructor(x, y, name = '', rotation = 0) {
+        super(x, y, name, rotation);
         this.image = '/images/door.png';
         this.isEdit = false;
     }
